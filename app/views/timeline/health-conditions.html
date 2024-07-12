@@ -1,0 +1,187 @@
+
+{% extends "layouts/dwp-layout.html" %}{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block head %}
+  {% include "includes/head.html" %}
+  <link href="/public/stylesheets/custom.css" media="all" rel="stylesheet" type="text/css" />
+  <style>
+    .govuk-summary-list__value
+    {width: 295px}
+  </style>
+{% endblock %}
+
+{% block pageTitle %}
+  Home – Prepare an appeal response
+{% endblock %}
+
+
+
+{% block beforeContent %}
+  {{govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  })}}
+  {% endblock %}
+
+{% block content %}
+
+  {% set existingConditions =
+    [
+      {
+        key: {
+          text: "Kidney failure"
+        },
+        
+        actions: {
+          items: [
+            {
+              href: "/timeline/remove-health-condition?condition=" + "Kidney failure" | urlencode,
+              text: "Remove",
+              visuallyHiddenText: "Item label"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Carpal tunnel syndrome"
+        },
+
+        value: {
+          text: ""
+        },
+        
+        actions: {
+          items: [
+            {
+              href: "/timeline/remove-health-condition?condition=" + "Carpal tunnel syndrome" | urlencode,
+              text: "Remove",
+              visuallyHiddenText: "Item label"
+            }
+          ]
+        }
+      }
+      
+    ]
+  %}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-form-group govuk-grid-column-three-quarters">
+      <form method="post">
+
+    <h1 class="govuk-heading-l"> Health conditions declared</h1>
+
+    
+    
+   
+
+    
+<h1 class="govuk-heading-m"> Existing conditions</h1>
+<div id="passport-issued-hint" class="govuk-hint">
+  Previously added health conditions can be removed if they no longer apply
+</div>
+    {% if data.timeline.removehealthcondition == 'Broken Wrist' %}
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Arthritis "
+            },
+
+            value: {
+              text: ""
+            },
+            
+            actions: {
+              items: [
+                {
+                  href: "/timeline/remove-health-condition?condition=" + "Back pain" | urlencode,
+                  text: "Remove",
+                  visuallyHiddenText: "Item label"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Carpal tunnel syndrome "
+            },
+
+            value: {
+              text: ""
+            },
+            
+            actions: {
+              items: [
+                {
+                  href: "/timeline/remove-health-condition?condition=" + "Back pain" | urlencode,
+                  text: "Remove",
+                  visuallyHiddenText: "Item label"
+                }
+              ]
+            }
+          }        
+        ]
+      }) }}
+    {% else %}
+      {{ govukSummaryList({
+        rows: existingConditions
+      }) }}
+    {%endif%} 
+        
+    {% if data.newHealthCondition %}
+    <h1 class="govuk-heading-m"> New health conditions</h1>
+
+    {{ govukSummaryList({    
+      rows: [
+      {
+        key: {
+          text: data.newHealthCondition
+        },
+        value: {
+          html: data.abilityToWork + "<br> " + data.medicalEvidence,
+          width: 1px
+        },
+        actions: {
+          items: [
+            {
+              href: "/timeline/points-for-each-activity",
+              text: "Change",
+              visuallyHiddenText: "Item label"
+            },
+            {
+              href: "/timeline/points-for-each-activity",
+              text: "Remove",
+              visuallyHiddenText: "Item label"
+            }        
+          ]
+        }
+      }
+      ]
+    }) }}
+
+    {%endif%}
+
+      <div class="govuk-button-group">
+        <a href="/timeline/Add-health-condition" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Add a new health condition
+        </a>
+                        
+        <a href="/timeline/foc/index" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          Continue 
+        </a>
+      </div>     
+    </form>
+ 
+    <!-- LINK NOT BUTTON WHEN NO DATA NEEDS TO BE SENT-->      
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

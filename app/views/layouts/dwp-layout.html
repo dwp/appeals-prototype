@@ -1,0 +1,13 @@
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% from "internal-service-header/macro.njk" import dwpHeader %}
+{% block header %}
+  {{ dwpHeader ({
+      name: serviceName,
+  serviceHref: '/',
+  action: "John Doe",
+  container:true
+  }) }}
+
+
+{% endblock %}

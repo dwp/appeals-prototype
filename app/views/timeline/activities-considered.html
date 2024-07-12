@@ -1,0 +1,208 @@
+{% extends "layouts/dwp-layout.html" %}{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block head %}
+  {% include "includes/head.html" %}
+  <link href="/public/stylesheets/custom.css" media="all" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block pageTitle %}
+  Home – Prepare an appeal response
+{% endblock %}
+
+
+
+{% block beforeContent %}
+  {{govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  })}}
+  {% endblock %}
+
+{% block content %}
+
+{% if (data.timeline.activities.mentalError === true or data.timeline.activities.physicalError === true) %}
+  <div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>
+          <a href="#">Select an activity or select none</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+{% endif %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    
+    
+    <form novalidation method="post">
+      
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Activities to include as context for your response
+
+            </h1>
+            
+          </legend>
+
+          <div id="event-name-hint" class="govuk-hint">
+            Select all that you want to include in 5.1
+          </div>
+        
+        
+          {{ govukCheckboxes({
+            id: "[timeline][activities][physical]",
+            name: "[timeline][activities][physical]",
+            errorMessage: {
+              text: "Select a physical activity or select none"
+            } if(data.timeline.activities.physicalError),
+            fieldset:{
+              legend: {
+                text:"Select physical activities to include",
+                isPageHeading:false,
+                classes: "govuk-fieldset__legend--m"            
+              }
+            },
+            values: data.timeline.activities.physical,
+            items: [
+              {
+                value: "Mobilising",
+                text: "Mobilising"
+              },
+              {
+                value: "Standing and sitting",
+                text: "Standing and sitting"
+              },
+              {
+                value: "Reaching",
+                text: "Reaching"
+              },
+              {
+                value: "Picking up and moving",
+                text: "Picking up and moving"
+              },
+              {
+                value: "Manual dexterity",
+                text: "Manual dexterity"
+              },
+              {
+                value: "Navigation",
+                text: "Navigation"
+              },
+              {
+                value: "Making self understood",
+                text: "Making self understood"
+              },
+
+              {
+                value: "Understanding communication",
+                text: "Understanding communication"
+              },
+              
+              {
+                value: "Continence",
+                text: "Continence"
+              },
+              {
+                value: "Consciousness",
+                text: "Consciousness"
+              },
+              {
+                divider: "or"
+              },
+              {
+                value: "none",
+                text: "No physical activities to include"
+              }
+            ]
+          }) }}
+
+
+          {{ govukCheckboxes({
+            id: "[timeline][activities][mental]",
+            name: "[timeline][activities][mental]",
+            errorMessage: {
+              text: "Select a mental, cognitive and intellectual activity or select none"
+            } if(data.timeline.activities.mentalError),
+            fieldset:{
+              legend: {
+                text:"Select mental, cognitive and intellectual activities to include",
+                isPageHeading:false,
+                classes: "govuk-fieldset__legend--m"              
+              }
+            },
+            values: data.timeline.activities.mental,    
+            items: [
+              {
+                value: "Learning new tasks ",
+                text: "Learning new tasks "
+              },
+              {
+                value: "Hazard awareness ",
+                text: "Hazard awareness "
+              },
+              {
+                value: "Personal action   ",
+                text: "Personal action   "
+              },
+              {
+                value: "Coping with change  ",
+                text: "Coping with change  "
+              },
+              {
+                value: "Getting about  ",
+                text: "Getting about  "
+              },
+              {
+                value: "Coping socially  ",
+                text: "Coping socially  "
+              },
+              {
+                value: "Appropriateness of behaviour  ",
+                text: "Appropriateness of behaviour  "
+              }, 
+
+              {
+                divider: "or"
+              },
+
+              {
+                value: "none",
+                text: "No mental, cognitive or intellectual activities to include"                
+              }
+            ]
+          }) }}
+           
+         
+        </div>
+
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+</form>
+</div>
+</div>
+{% endblock %}
+
+//when they click continue - change to '2,copy to endblock
+
+{% block pageScripts %}
+<script type="text/javascript">
+  function saveData(){
+    sessionStorage.setItem("taskProgressRepDetails","2");
+    document.getElementById("form").submit();
+  }
+
+</script>
+{% endblock %}

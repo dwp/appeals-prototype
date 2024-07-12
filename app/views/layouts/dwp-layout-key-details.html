@@ -1,0 +1,20 @@
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% from "internal-service-header/macro.njk" import dwpHeader %}
+{% block header %}
+  {{ dwpHeader ({
+      name: serviceName,
+  serviceHref: '/',
+  action: "John Doe",
+  container:true
+  }) }}
+
+  <section class="dwp-key-details-bar" aria-label="Key details">
+<div class="dwp-key-details-bar__key-details">
+<dl class="dwp-key-details-bar__top-block">
+    <dt class="govuk-visually-hidden">Nino:</dt>
+    <dd class="dwp-key-details-bar__secondary">HMCTS reference: 1234 5678 8101 1111</dd>
+</dl>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,99 @@
+
+{% extends "layouts/dwp-layout.html" %}{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block head %}
+  {% include "includes/head.html" %}
+  <link href="/public/stylesheets/custom.css" media="all" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block pageTitle %}
+  Home – Prepare an appeal response
+{% endblock %}
+
+
+
+{% block beforeContent %}
+  {{govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  })}}
+  {% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <form novalidation method="post">
+        
+        
+        {{ govukRadios({
+          name: "[timeline][provisiontype]",
+          fieldset: {
+            legend: {
+              text: "Which Schedule 8 'treated as' provision was met?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          value: data.timeline.provisiontype,
+          items: [
+            {
+              value: "Paragraph 1 (Receiving certain treatments)",
+              text: "Receiving certain treatments (Paragraph 1)"
+            },
+            {
+              value: "Paragraph 2 (In hospital)",
+              text: "In hospital (Paragraph 2)"
+            },
+            {
+              value: "Paragraph 3 (Prevented from working by law)",
+              text: "Prevented from working by law (Paragraph 3)"
+            },
+            {
+              value: "Paragraph 4 (Risk to self or others)",
+              text: "Risk to self or others (Paragraph 4)"
+            },
+            {
+              value: "Paragraph 5 (Life threatening disease)",
+              text: "Life threatening disease (Paragraph 5)"
+            },
+
+            {
+              value: "Paragraph 6 (Disabled and over the age for state pension credit)",
+              text: "Disabled and over the age for state pension credit (Paragraph 5)"
+            }, 
+
+            {
+              divider: "or"
+            }, 
+
+            {
+              value: "No provisions were met",
+              text: "No provisions were met"
+            }
+
+
+          ]
+        }) }}
+        
+        
+        
+          
+        <!-- LINK NOT BUTTON WHEN NO DATA NEEDS TO BE SENT-->
+        
+        <button class="govuk-button" data-module="govuk-button" onclick="saveData()">
+          Continue
+        </button>
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+

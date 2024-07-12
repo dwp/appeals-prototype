@@ -1,0 +1,77 @@
+
+{% extends "layouts/dwp-layout-key-details.html" %}{% from "govuk/components/button/macro.njk" import govukButton %}
+
+
+{% block pageTitle %}
+  Home – Prepare an appeal response
+{% endblock %}
+
+
+{% block beforeContent %}
+
+
+  {{govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  })}}
+  {% endblock %}
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Decision type</h1>
+        <form action="/timeline/decisionType" method="post" class="form" id="form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="Select a template">
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="lcw" name="decisionType" type="radio" value="LCW" aria-describedby="Select this template with health conditions not declared at IODC">
+                <label class="govuk-label govuk-radios__label" for="lcw">
+                  No LCW (limited capability for work)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="lcwra" name="decisionType" type="radio" value="LCWRA" aria-describedby="Select this template with health conditions declared at IODC but had no impact on work">
+                <label class="govuk-label govuk-radios__label" for="lcwra">
+                  LCW not LCWRA (limited capability for work but not limited capability for work related activity)
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <div class="govuk-button-group">
+          <button class="govuk-button" id="addButton">
+            Continue
+          </button>
+        </div>
+        </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script type="text/javascript">
+  window.addEventListener('load', (event) => {
+    const radioButtons = document.querySelectorAll('input[name="decisonType"]');
+    for(const radioButton of radioButtons){
+      if(radioButton.value == sessionStorage.getItem("decisonType")){
+        radioButton.checked = true;
+      }
+    }
+  });
+
+  function saveData(){
+    const radioButtons = document.querySelectorAll('input[name="decisonType"]');
+    for(const radioButton of radioButtons){
+      if(radioButton.checked){
+        sessionStorage.setItem("decisonType",radioButton.value);
+      }
+    }
+    window.location.href = "01-task-list-new.html";
+  }
+</script>
+{% endblock %}
